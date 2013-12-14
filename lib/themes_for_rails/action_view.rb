@@ -23,17 +23,17 @@ module ThemesForRails
 
     def theme_stylesheet_path(asset, options = self.theme_name)
       theme = options.is_a?(String) ? options : options[:theme]
-      base_theme_stylesheet_path(:theme => theme, :asset => digest_for_stylesheet(check_add_extension(asset, '.css'), new_theme_name))
+      base_theme_stylesheet_path(:theme => theme, :asset => digest_for_stylesheet(check_add_extension(asset, '.css'), theme))
     end
 
     def theme_javascript_path(asset, options = self.theme_name)
       theme = options.is_a?(String) ? options : options[:theme]
-      base_theme_javascript_path(:theme => theme, :asset => digest_for_javascript(check_add_extension(asset, '.js'), new_theme_name))
+      base_theme_javascript_path(:theme => theme, :asset => digest_for_javascript(check_add_extension(asset, '.js'), theme))
     end
 
     def theme_image_path(asset, options = self.theme_name)
       theme = options.is_a?(String) ? options : options[:theme]
-      base_theme_image_path(:theme => theme, :asset => digest_for_image("#{asset}", new_theme_name))
+      base_theme_image_path(:theme => theme, :asset => digest_for_image("#{asset}", theme))
     end
 
     def theme_image_tag(source, options = {})
