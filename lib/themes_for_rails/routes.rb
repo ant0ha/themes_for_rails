@@ -6,15 +6,13 @@ module ThemesForRails
       theme_dir = ThemesForRails.config.themes_routes_dir
       constraints = { :theme => /[\w\.]*/ } 
       
-      # Lets not pollute the routes if they aren't being used.
-      if ThemesForRails.config.asset_digests_enabled?
-        match "#{theme_dir}/:theme/stylesheets/*asset" => 'themes_for_rails/assets#stylesheets',
-          :as => :base_theme_stylesheet, :constraints => constraints, :via => :get
-        match "#{theme_dir}/:theme/javascripts/*asset" => 'themes_for_rails/assets#javascripts',
-          :as => :base_theme_javascript, :constraints => constraints, :via => :get
-        match "#{theme_dir}/:theme/images/*asset" => 'themes_for_rails/assets#images',
-          :as => :base_theme_image, :constraints => constraints, :via => :get
-      end
+      get "#{theme_dir}/:theme/stylesheets/*asset" => 'themes_for_rails/assets#stylesheets',
+        :as => :base_theme_stylesheet, :constraints => constraints
+      get "#{theme_dir}/:theme/javascripts/*asset" => 'themes_for_rails/assets#javascripts',
+        :as => :base_theme_javascript, :constraints => constraints
+      get "#{theme_dir}/:theme/images/*asset" => 'themes_for_rails/assets#images',
+        :as => :base_theme_image, :constraints => constraints
+
     end
 
   end
