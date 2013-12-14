@@ -7,7 +7,7 @@ module ThemesForRails
       constraints = { :theme => /[\w\.]*/ } 
       
       # Lets not pollute the routes if they aren't being used.
-      unless ThemesForRails.config.asset_digests_enabled?
+      if ThemesForRails.config.asset_digests_enabled?
         match "#{theme_dir}/:theme/stylesheets/*asset" => 'themes_for_rails/assets#stylesheets',
           :as => :base_theme_stylesheet, :constraints => constraints, :via => :get
         match "#{theme_dir}/:theme/javascripts/*asset" => 'themes_for_rails/assets#javascripts',
