@@ -47,13 +47,17 @@ module ThemesForRails
 
     def add_themes_assets_to_asset_pipeline
       Rails.logger.info "Start adding themes to assets [#{ThemesForRails.config.asset_digests_enabled?}]"
-      #if ThemesForRails.config.asset_digests_enabled?
-      available_theme_names.each do |theme_name|
-        theme_asset_path = ThemesForRails.config.assets_dir.gsub(":root", ThemesForRails.config.base_dir).gsub(":name", theme_name.to_s)
-        Rails.logger.info "== Adding theme [#{theme_name}] asset dir [#{theme_asset_path}] to asset pipeline"
+      if ThemesForRails.config.asset_digests_enabled?
+        # it appears that in sprockets now you just have to add the themes directory to the search path, else the directory structure
+        # is not recreated in public/assets
+        # available_theme_names.each do |theme_name|
+        #   theme_asset_path = ThemesForRails.config.assets_dir.gsub(":root", ThemesForRails.config.base_dir).gsub(":name", theme_name.to_s)
+        #   Rails.logger.info "== Adding theme [#{theme_name}] asset dir [#{theme_asset_path}] to asset pipeline"
+        #   Rails.application.config.assets.paths.prepend(theme_asset_path) unless Rails.application.config.assets.paths.include?(theme_asset_path)
+        # end unless ThemesForRails.config.base_dir =~ %r!/app/assets/!
+        theme_asset_path = ThemesForRails.config.assets_dir.gsub(":root", ThemesForRails.config.base_dir).gsub(":name", '')
         Rails.application.config.assets.paths.prepend(theme_asset_path) unless Rails.application.config.assets.paths.include?(theme_asset_path)
-      end unless ThemesForRails.config.base_dir =~ %r!/app/assets/!
-      #end
+      end
     end
     
     def already_configured_in_sass?(sass_dir)
